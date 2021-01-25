@@ -52,19 +52,21 @@ y_train = keras.utils.to_categorical(y_train, num_category)
 y_test = keras.utils.to_categorical(y_test, num_category)
 print("One-hot encoded label size:", y_train.shape, y_test.shape)
 
+print("Building Model")
+
 model = Sequential()
 
 model.add(Conv2D(32, kernel_size=(3, 3), padding = "same", activation='relu', input_shape=input_shape))
 model.add(Conv2D(32, (3, 3), activation='relu', padding = "same"))
-model.add(MaxPooling2D(pool_size=(2, 2), strides = 2, padding = "same"))
+model.add(MaxPool2D(pool_size=(2, 2)))
 
 model.add(Conv2D(64, kernel_size=(3, 3), padding = "same", activation='relu'))
 model.add(Conv2D(64, (3, 3), activation='relu', padding = "same"))
-model.add(MaxPooling2D(pool_size=(2, 2), strides = 2, padding = "same"))
+model.add(MaxPool2D(pool_size=(2, 2)))
 
 model.add(Conv2D(128, kernel_size=(3, 3), padding = "same", activation='relu'))
 model.add(Conv2D(128, (3, 3), activation='relu', padding = "same"))
-model.add(MaxPooling2D(pool_size=(2, 2), strides = 2, padding = "same"))
+model.add(MaxPool2D(pool_size=(2, 2)))
 
 model.add(Flatten())
 model.add(Dense(1000, activation='relu'))
@@ -72,8 +74,11 @@ model.add(Dense(1000, activation='relu'))
 model.add(Dense(500, activation='relu'))
 model.add(Dense(100, activation='relu'))
 model.add(Dense(num_category, activation='softmax'))
+
+print("Compiling Model")
 model.compile(loss=keras.losses.categorical_crossentropy, optimizer='adam', metrics=['accuracy'])
 
+print("Training Model")
 batch_size = 100
 num_epoch = 12
 model_log = model.fit(X_train, y_train, batch_size=batch_size, epochs=num_epoch, verbose=1, validation_data=(X_test, y_test))
@@ -100,23 +105,18 @@ plt.xlabel('# Epoch')
 plt.legend(['train', 'test'], loc='upper right')
 
 plt.tight_layout()
-plt.save_fig("Plots.png")
+plt.savefig("Plots.png")
 
-# choice = int(input("Do you want to store this model?? Enter 1 for Yes and 0 for No: "))
-# if(choice == 1):
-  
-#   acc_tr = int(input("Enter train accuracy rounded to the nearest integer: "))
-#   acc_va = int(input("Enter validation accuracy rounded to the nearest integer: "))
-#   file_name = location + 'model_' + str(acc_tr) + "_" + str(acc_va)
+file_name = location + 'model_1'
 
-#   #Save the model
-#   # serialize model to JSON
-#   model_json = model.to_json()
-#   with open(file_name + ".json", "w") as json_file:
-#       json_file.write(model_json)
-#   # serialize weights to HDF5
-#   model.save_weights(file_name +".h5")
-#   print("Saved model to disk")
+# Save the model
+# serialize model to JSON
+model_json = model.to_json()
+with open(file_name + ".json", "w") as json_file:
+	json_file.write(model_json)
+# serialize weights to HDF5
+model.save_weights(file_name +".h5")
+print("Saved model to disk")
 
 # choice = int(input("Do you want to load any saved model? Enter 1 for Yes and 0 for No: "))
 # if(choice == 1):

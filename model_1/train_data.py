@@ -123,8 +123,8 @@ model.add(Dense(37, activation='softmax'))
 model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 print(model.summary())
 
-batch_size = 1000
-num_epoch = 5
+batch_size = 50
+num_epoch = 50
 model_log = model.fit(X_train, y_train, batch_size=batch_size, epochs=num_epoch, verbose=1, validation_data=(X_test, y_test))
 
 score = model.evaluate(X_test, y_test, verbose=0)
@@ -151,7 +151,7 @@ plt.legend(['train', 'test'], loc='upper right')
 plt.tight_layout()
 plt.savefig("Plots.png")
 
-file_name = location + 'model_1'
+file_name = location + 'model_2'
 #Save the model
 # serialize model to JSON
 model_json = model.to_json()
