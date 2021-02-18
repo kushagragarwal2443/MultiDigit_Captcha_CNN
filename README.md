@@ -7,9 +7,10 @@ This repository contains code written to predict the sum of the digits appearing
 * Used a train-val split of 80-20 resulting in 24000 training images and 6000 validation images
 
 #### Methodology used:
-* I tried multiple architectures, including but not limited to SimpleCNNs, Yann LeCun's LeNet-5 (Modified) for MNIST datasets, and the one described below
+* I tried multiple architectures, including but not limited to SimpleCNNs, Yann LeCun's LeNet-5 (Modified) for MNIST datasets, and the one example architecure described below
+* I used 4 different types of networks and then applied ​ a smart majority voting strategy​ to select which model output should be chosen among them. I used 3 end to end neural networks and 1 digit extractor + neural net model. For detailed implementation details, refer to the Report.
 
-### Model
+### Example Model
 ________________________________________________________________
 Layer (type)                 Output Shape              Param  
 ________________________________________________________________
@@ -74,10 +75,10 @@ ________________________________
 * Confusion matrix was created
 * Important metrics like Precision, Recall, F1 score along with their supports were calculated
 
-### Future Work
+## Second Model
 
-* I plan to add another model to this dataset, which will in-principle do the hard-task of segmentation itself (using contour-detection, edge-detection or connected-component algorithms) and then use the padded, rescaled 4 numbers which have been segmented out and predict their labels. Then the sum of these labels would be the correct label. The model can be trained on MNIST dataset using SOTA architectures.
-* This method would yield superior results as it does the hard task of segmentation itself, can have more data (MNIST alone is million images), can also use benchmark models for the MNIST data.
+* I added another model to this dataset, which in-principle does the hard-task of segmentation itself (using contour-detection, edge-detection or connected-component algorithms) and then uses the padded, rescaled 4 numbers which have been segmented out and predicts their labels. Then the sum of these labels would be the correct label. The model can be trained on MNIST dataset using SOTA architectures.
+* This method yields superior results as it does the hard task of segmentation itself, can have more data (MNIST alone is million images), can also use benchmark models for the MNIST data.
 
 ### References
 
